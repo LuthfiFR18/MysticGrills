@@ -38,7 +38,7 @@ public class LoginController {
 	 Stage loginStage = (Stage) loginView.getScene().getWindow();
      loginStage.close();
 	 
-     MenuItemView menuItemView = new MenuItemView();
+     MenuItemView menuItemView = new MenuItemView(true);
      Stage menuItemStage = new Stage();
      menuItemStage.setScene(menuItemView.getScene());
      menuItemStage.setTitle("Menu Items");

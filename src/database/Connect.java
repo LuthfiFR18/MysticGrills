@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Connect {
@@ -16,7 +17,9 @@ public class Connect {
 
     private Connection con;
     private Statement st;
+    private ResultSet rs;
     private static Connect connect;
+    
 
     public static Connect getInstance() {
         if (connect == null)
@@ -35,6 +38,7 @@ public class Connect {
 			System.exit(0);
         }
     }
+    
 
     public void insertUser(String username, String email, String password, String confirm_password) {
         try {
@@ -46,7 +50,9 @@ public class Connect {
         }
     }
     
- 
+    public static synchronized Connect getConnection() {
+		return connect = (connect == null) ? new Connect() : connect;
+	}
 
 	public boolean validateUser(String email, String password) {
 		try {
@@ -65,4 +71,38 @@ public class Connect {
         }
 		return false;
 	}
+	
+		public ResultSet executeQuery(String query) {
+			try {
+					st = con.createStatement();
+					rs = st.executeQuery(query);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			return rs;
+		}
+	
+		public void executeUpdate(String query) {
+				try {
+					st = con.createStatement();
+					st.executeUpdate(query);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+		}
+	
+		public PreparedStatement prepareStatement(String query) {
+			PreparedStatement ps = null;
+			try {
+				ps = con.prepareStatement(query);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return ps;
+		}
+	
+
 }

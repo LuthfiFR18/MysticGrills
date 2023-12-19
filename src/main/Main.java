@@ -23,10 +23,10 @@ public class Main extends Application {
         LoginView loginView = new LoginView();
         LoginController loginController = new LoginController(loginView, connect);
         
-        MenuItemView menuItemView = new MenuItemView();
-        MenuItemController menuItemController = new MenuItemController(menuItemView);
+        MenuItemView menuItemView = new MenuItemView(true);
+        MenuItemController menuItemController = new MenuItemController(menuItemView, connect);
 
-        primaryStage.setScene(loginView.getScene());
+        primaryStage.setScene(menuItemView.getScene());
         
         primaryStage.setResizable(false);
         primaryStage.show();

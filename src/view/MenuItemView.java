@@ -1,80 +1,134 @@
 package view;
 
+import controller.MenuItemController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Spinner;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import model.Products;
 
-public class MenuItemView {
-    private Scene scene;
-    private BorderPane borderContainer;
-    private GridPane gridContainer;
-    private Button viewMenuBtn;
+public class MenuItemView extends VBox{
+	private TableView<Products> table;
+	private Button addBtn = new Button("Add");
+	private Button deleteBtn = new Button("Delete");
+	private Button updateBtn = new Button("Update");
+	private Button addToOrderBtn = new Button("Add to Order");
+	
+	private TextField InputId = new TextField();
+	private TextField Inputname = new TextField();
+	private TextField Inputprice = new TextField();
+	private TextField Inputqty = new TextField();
 
-    private Label menuItemLabel;
-    private ListView<String> menuItemsListView;
-    private Label quantityLabel;
-    private Spinner<Integer> quantitySpinner;
-    private Button addToOrderBtn;
+	
+	public MenuItemView(boolean isAdmin) {
 
-    public MenuItemView() {
-        borderContainer = new BorderPane();
-        gridContainer = new GridPane();
 
-        menuItemLabel = new Label("Menu Item");
-        menuItemsListView = new ListView<>();
-        quantityLabel = new Label("Quantity");
-        quantitySpinner = new Spinner<>(1, Integer.MAX_VALUE, 1);
-        addToOrderBtn = new Button("Add to Order");
+		table = createProductTable();
+			
+		 GridPane forms = createProductForm(table, isAdmin);
+	        VBox.setMargin(forms, new Insets(20));
+	        
+	        HBox buttons = new HBox(addToOrderBtn);
+	        buttons.setSpacing(10);
 
-        initialize();
-        addComponents();
-        arrangeComponents();
+	        this.getChildren().addAll(table, forms, buttons);
+	        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+	        Scene scene = new Scene(this, 1200, 800);
+	        new Stage().setScene(scene);
+	}
+	
+	private TableView<Products> createProductTable() {
+		TableView<Products> table = new TableView<>();
+		TableColumn<Products, String> idColumn = new TableColumn<>("Product ID");
+		idColumn.setCellValueFactory(new PropertyValueFactory<>("ProductID"));
+
+		TableColumn<Products, String> nameColumn = new TableColumn<>("Name");
+		nameColumn.setCellValueFactory(new PropertyValueFactory<>("ProductName"));
+
+		TableColumn<Products, Number> priceColumn = new TableColumn<>("Price");
+		priceColumn.setCellValueFactory(new PropertyValueFactory<>("ProductPrice"));
+
+		
+		table.getColumns().add(idColumn);
+		table.getColumns().add(nameColumn);
+		table.getColumns().add(priceColumn);
+
+		return table;
+	}
+	
+	private GridPane createProductForm(TableView<Products> table, boolean isAdmin) {
+        GridPane forms = new GridPane();
+        forms.setVgap(20);
+        forms.setHgap(10);
+
+        forms.add(new Label("Product ID:"), 0, 0);
+        InputId.setDisable(true);
+        forms.add(InputId, 1, 1);
+        forms.add(new Label("Product Name:"), 0, 1);
+        forms.add(Inputname, 1, 1);
+        forms.add(new Label("Product Price:"), 0, 2);
+        forms.add(Inputprice, 1, 2);
+        forms.add(addBtn, 0, 4);
+        forms.add(deleteBtn, 1, 4);
+        forms.add(updateBtn, 2, 4);
+
+        // Make the admin buttons invisible for non-admin users
+        addBtn.setVisible(isAdmin);
+        deleteBtn.setVisible(isAdmin);
+        updateBtn.setVisible(isAdmin);
+
+        return forms;
     }
 
-    private void initialize() {
-        viewMenuBtn = new Button("View Menu");
-        scene = new Scene(borderContainer, 600, 400);
-    }
+	public TableView<Products> getTable() {
+		return table;
+	}
 
-    private void addComponents() {
-        borderContainer.setTop(menuItemLabel);
-        borderContainer.setCenter(gridContainer);
-        borderContainer.setBottom(addToOrderBtn);
-        borderContainer.setCenter(viewMenuBtn);
+	public Button getAddButton() {
+		return addBtn;
+	}
 
-        gridContainer.add(menuItemLabel, 0, 0);
-        gridContainer.add(menuItemsListView, 1, 0);
-        gridContainer.add(quantityLabel, 0, 1);
-        gridContainer.add(quantitySpinner, 1, 1);
-        gridContainer.add(viewMenuBtn, 1, 4);
-    }
+	public Button getDeleteButton() {
+		return deleteBtn;
+	}
 
-    private void arrangeComponents() {
-        BorderPane.setAlignment(menuItemLabel, Pos.CENTER);
-        BorderPane.setAlignment(addToOrderBtn, Pos.CENTER);
+	public Button getUpdateButton() {
+		return updateBtn;
+	}
+	
+	public Button getAddToOrderButton() {
+	        return addToOrderBtn;
+	}
 
-        borderContainer.setPadding(new Insets(10));
+	public TextField getIdInput() {
+		return InputId;
+	}
 
-        gridContainer.setAlignment(Pos.CENTER);
-        gridContainer.setVgap(20);
+	public TextField getNameInput() {
+		return Inputname;
+	}
 
-        quantitySpinner.setMaxWidth(80);
+	public TextField getPriceInput() {
+		return Inputprice;
+	}
 
-        menuItemLabel.setMinWidth(100);
-        quantityLabel.setMinWidth(100);
-    }
+	public TextField getInputqty() {
+		return Inputqty;
+	}
 
-    public Scene getScene() {
-        return scene;
-    }
+	
+	
 
-    public void setAddToOrderAction(Runnable action) {
-        addToOrderBtn.setOnAction(event -> action.run());
-    }
+	
 }
