@@ -31,6 +31,8 @@ public class Connect {
             st = con.createStatement();
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Failed to connect the database, the system is terminated!");
+			System.exit(0);
         }
     }
 
@@ -54,7 +56,7 @@ public class Connect {
                 preparedStatement.setString(2, password);
 
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                    
+                	System.out.println("Query executed");
                     return resultSet.next();
                 }
             }

@@ -19,13 +19,14 @@ public class LoginView {
     private Label titleLbl, emailLbl, passwordLbl;
     private TextField emailTF;
     private PasswordField passwordPF;
-    private Button loginBtn;
+    private Button loginBtn1;
 
     public LoginView() {
         initialize();
         addComponent();
         arrangeComponent();
     }
+    
 
     private void initialize() {
         borderContainer = new BorderPane();
@@ -35,7 +36,7 @@ public class LoginView {
         passwordLbl = new Label("Password");
         emailTF = new TextField();
         passwordPF = new PasswordField();
-        loginBtn = new Button("Login");
+        loginBtn1 = new Button("Login");
         scene = new Scene(borderContainer, 600, 300);
     }
 
@@ -49,13 +50,13 @@ public class LoginView {
 
         borderContainer.setTop(titleLbl);
         borderContainer.setCenter(gridContainer);
-        borderContainer.setBottom(loginBtn);
+        borderContainer.setBottom(loginBtn1);
     }
 
     private void arrangeComponent() {
        
         BorderPane.setAlignment(titleLbl, Pos.CENTER);
-        BorderPane.setAlignment(loginBtn, Pos.CENTER);
+        BorderPane.setAlignment(loginBtn1, Pos.CENTER);
 
         borderContainer.setPadding(new Insets(10));
         BorderPane.setMargin(titleLbl, new Insets(20));
@@ -81,11 +82,13 @@ public class LoginView {
         return emailTF;
     }
 
-    public PasswordField getPasswordPF() {
+    public Button getLoginBtn1() {
+        return loginBtn1;
+    }
+
+	public PasswordField getPasswordPF() {
         return passwordPF;
     }
 
-    public Button getLoginBtn() {
-        return loginBtn;
-    }
+    
 }

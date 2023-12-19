@@ -40,7 +40,8 @@ public class RegisterView {
         confirmPassPF = new PasswordField();
 
         regisBtn = new Button("Register");
-
+        
+        
         initialize();
         addComponents();
         arrangeComponents();
@@ -56,6 +57,7 @@ public class RegisterView {
         borderContainer.setCenter(gridContainer);
         borderContainer.setBottom(regisBtn);
 
+
         gridContainer.add(usernameLbl, 0, 0);
         gridContainer.add(emailLbl, 0, 1);
         gridContainer.add(passwordLbl, 0, 2);
@@ -68,7 +70,7 @@ public class RegisterView {
     }
 
     private void arrangeComponents() {
-        BorderPane.setAlignment(titleLbl, Pos.CENTER);
+        BorderPane.setAlignment(titleLbl, Pos.TOP_CENTER);
         BorderPane.setAlignment(regisBtn, Pos.CENTER);
 
         borderContainer.setPadding(new Insets(10));
@@ -113,5 +115,7 @@ public class RegisterView {
     public Button getRegisBtn() {
         return regisBtn;
     }
+    
+    
 }
 

@@ -1,9 +1,14 @@
 package main;
 
+import controller.LoginController;
+import controller.MenuItemController;
 import controller.RegisterController;
 import database.Connect;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
+import view.LoginView;
+import view.MenuItemView;
 import view.RegisterView;
 
 public class Main extends Application {
@@ -14,9 +19,15 @@ public class Main extends Application {
 
         RegisterView registerView = new RegisterView();
         RegisterController registerController = new RegisterController(registerView, connect);
+        
+        LoginView loginView = new LoginView();
+        LoginController loginController = new LoginController(loginView, connect);
+        
+        MenuItemView menuItemView = new MenuItemView();
+        MenuItemController menuItemController = new MenuItemController(menuItemView);
 
-        primaryStage.setTitle("Registration Form");
-        primaryStage.setScene(registerView.getScene());
+        primaryStage.setScene(loginView.getScene());
+        
         primaryStage.setResizable(false);
         primaryStage.show();
     }

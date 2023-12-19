@@ -9,7 +9,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 
 public class MenuItemView {
     private Scene scene;
@@ -39,9 +38,7 @@ public class MenuItemView {
     }
 
     private void initialize() {
-    	
-    	viewMenuBtn = new Button("View Menu");
-    	
+        viewMenuBtn = new Button("View Menu");
         scene = new Scene(borderContainer, 600, 400);
     }
 
@@ -72,18 +69,12 @@ public class MenuItemView {
         menuItemLabel.setMinWidth(100);
         quantityLabel.setMinWidth(100);
     }
-    
-    
 
     public Scene getScene() {
         return scene;
     }
 
-    // add event handlers for the button or other functionalities as needed
-    
     public void setAddToOrderAction(Runnable action) {
         addToOrderBtn.setOnAction(event -> action.run());
     }
-
-    // Other methods for setting menu items in the ListView, etc., as needed
 }
