@@ -44,9 +44,9 @@ public class LoginView {
         
 
         gridContainer.add(emailLbl, 0, 0);
-        gridContainer.add(passwordLbl, 0, 2);
-        gridContainer.add(emailTF, 1, 1);
-        gridContainer.add(passwordPF, 1, 2);
+        gridContainer.add(passwordLbl, 0, 1);
+        gridContainer.add(emailTF, 1, 0);
+        gridContainer.add(passwordPF, 1, 1);
 
         borderContainer.setTop(titleLbl);
         borderContainer.setCenter(gridContainer);
